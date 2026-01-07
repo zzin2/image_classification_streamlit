@@ -1,6 +1,7 @@
 import streamlit as st
 from functions import show_graph, show_classification_result
 from transformers import pipeline
+import torch
 
 @st.cache_resource
 def load_model():

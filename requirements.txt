@@ -3,3 +3,4 @@ transformers~=4.57.3
 pandas~=2.3.3
 pillow~=12.1.0
 plotly
+torch
