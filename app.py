@@ -15,13 +15,18 @@ st.title("이미지 분류하기")
 st.markdown("---")
 
 option = st.radio(label="넣을 이미지 방법을 선택하세요.", options=["촬영하기","사진 업로드"])
+
 if option == "촬영하기":
     st.header("촬영하기")
     img_f = st.camera_input(label="👀여기 보세요")
     if st.button("**분류하기**"):
-        st.subheader("결과")
-        preds = show_classification_result(img_f, classifier)
-        show_graph(preds)
+        if img_f is None:
+            st.error("Take Photo 누른 후에 분류해주세요.")
+        else:
+            st.subheader("결과")
+            preds = show_classification_result(img_f, classifier)
+            show_graph(preds)
+
 
 elif option == "사진 업로드":
     st.header("사진 업로드")
@@ -32,11 +37,16 @@ elif option == "사진 업로드":
         accept_multiple_files=True
         )
     if st.button("**분류하기**"):
-        st.subheader("결과")
-        for img in imgs:
-            st.image(img, width="content")
-            preds = show_classification_result(img, classifier)
-            show_graph(preds)
+        if len(imgs) == 0:
+            st.error("이미지를 먼저 업로드 해주세요.")
+        else:
+            st.subheader("결과")
+            for img in imgs:
+                st.image(img, width="content")
+                preds = show_classification_result(img, classifier)
+                show_graph(preds)
+
+
 
 
 
